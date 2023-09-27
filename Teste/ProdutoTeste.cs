@@ -104,9 +104,31 @@ namespace Teste
         [InlineData(null)]
         public void ProdutoNomeInválido(string nomeInvalido)
         {
+            /*
             Assert.Throws<ArgumentException>( ()=> new Produto(this._codigo, nomeInvalido, this._saldo, this._custo, this._medida));
+            */
+
+            var mensagem = Assert.Throws<ArgumentException>(() => 
+                new Produto(this._codigo, nomeInvalido, 
+                this._saldo, this._custo, this._medida)).Message;
+
+            Assert.Equal("Nome invalido", mensagem);
+
         }
 
+        [Theory]
+
+        [InlineData(-1)]
+        [InlineData(1)]
+
+        public void saldoInvalido(int saldoInvalido) 
+        {
+            var mensagem = Assert.Throws<ArgumentException>(() =>
+                new Produto(this._codigo, this._nome, saldoInvalido, 
+                this._custo, this._medida)).Message;
+
+            Assert.Equal("Saldo invalido", mensagem);
+        }
     }
 
     internal class Produto
@@ -122,7 +144,12 @@ namespace Teste
 
             if(string.IsNullOrEmpty(nome)) //(nameof == "" || nome = null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Nome invalido");
+            }
+
+            if (saldo != 0) 
+            {
+                throw new ArgumentException("Saldo invalido") ;
             }
 
             this.Codigo = codigo;
