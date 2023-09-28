@@ -108,11 +108,11 @@ namespace Teste
             Assert.Throws<ArgumentException>( ()=> new Produto(this._codigo, nomeInvalido, this._saldo, this._custo, this._medida));
             */
 
-            var mensagem = Assert.Throws<ArgumentException>(() => 
+                Assert.Throws<ArgumentException>(() => 
                 new Produto(this._codigo, nomeInvalido, 
-                this._saldo, this._custo, this._medida)).Message;
+                this._saldo, this._custo, this._medida)).ComMensagem("Nome invalido");
 
-            Assert.Equal("Nome invalido", mensagem);
+            //Assert.Equal("Nome invalido", mensagem);
 
         }
 
@@ -123,11 +123,11 @@ namespace Teste
 
         public void saldoInvalido(int saldoInvalido) 
         {
-            var mensagem = Assert.Throws<ArgumentException>(() =>
+                Assert.Throws<ArgumentException>(() =>
                 new Produto(this._codigo, this._nome, saldoInvalido, 
-                this._custo, this._medida)).Message;
+                this._custo, this._medida)).ComMensagem("Saldo invalido");
 
-            Assert.Equal("Saldo invalido", mensagem);
+            //Assert.Equal("Saldo invalido", mensagem);
         }
     }
 
